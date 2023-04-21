@@ -1,0 +1,44 @@
+<!-- <div  *ngFor="let emp of EmployeList? EmployeList : []">{{emp.Id}}</div> -->
+
+<div class="table-container mat-elevation-z8">
+<table mat-table [dataSource]="EmployeListsorted? EmployeListsorted : []" class="mat-elevation-z8">
+    <ng-container matColumnDef="EmployeeName">
+      <th mat-header-cell *matHeaderCellDef> Employee Name </th>
+      <td mat-cell *matCellDef="let element"  > {{element.EmployeeName}} </td>
+     
+    </ng-container>
+  
+    <ng-container matColumnDef="StarTimeUtc">
+      <th mat-header-cell *matHeaderCellDef> Start Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.StarTimeUtc}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="EndTimeUtc">
+      <th mat-header-cell *matHeaderCellDef> End Time </th>
+      <td mat-cell *matCellDef="let element"> {{element.EndTimeUtc}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="EntryNotes">
+      <th mat-header-cell *matHeaderCellDef> Entry Notes </th>
+      <td mat-cell *matCellDef="let element"> {{element.EntryNotes}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Total Time">
+        <th mat-header-cell *matHeaderCellDef> Total Time </th>
+        <td mat-cell *matCellDef="let element" > {{element.TotalTime}} </td>
+      </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="gettime(row.StarTimeUtc,row.EndTimeUtc)"  [ngStyle]="{'background-color': getTimeColor(row)}" ></tr>
+  </table>
+  
+</div>
+<mat-toolbar >
+    <h1>Click On Any Row To See Pi-Chart </h1>
+    <p>  ➡️ b) Visualize JSON data in a PIE Chart using Angular ⬇️</p>
+  </mat-toolbar>
+<div class="section2 m-4 p-3" *ngIf="ChartStartTime !== undefined ">
+<app-charvizulizer
+[startTime]="ChartStartTime"
+[endTime]="ChartEndTime">
+</app-charvizulizer>
+</div>
